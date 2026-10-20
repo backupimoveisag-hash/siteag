@@ -98,7 +98,7 @@ function renderHeader(){
   const date=new Date(catalog.syncedAt||Date.now());document.getElementById('heroSync').textContent=date.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});document.getElementById('syncText').textContent='Atualizado '+date.toLocaleDateString('pt-BR')+' às '+date.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('footerEmail').textContent=s.email||'E-mail';document.getElementById('footerEmail').href=s.email?`mailto:${s.email}`:'#';document.getElementById('footerPhone').textContent=s.phone||'';document.getElementById('year').textContent=new Date().getFullYear();
   ['navWhatsapp','floatingWa','footerWhatsapp','financeWhatsapp'].forEach(id=>{const a=document.getElementById(id);if(a){a.href=whatsappLink();a.target='_blank'}});
-  if(fp){document.getElementById('heroPhoto').style.backgroundImage=`url("${heroCoverHD(fp)}")`;document.getElementById('heroPropertyInfo').innerHTML=`<div><small>${safe(fp.district||fp.city)} · ${safe(fp.id)}</small><h2>${safe(fp.title)}</h2></div><div class="hero-property-price">${money(fp.price)}</div>`;document.getElementById('heroOpen').dataset.id=fp.id;document.getElementById('experienceImage').style.backgroundImage=`url("${cover(catalog.properties[1]||fp)}")`}
+  if(fp){document.getElementById('heroPropertyInfo').innerHTML=`<div><small>${safe(fp.district||fp.city)} · ${safe(fp.id)}</small><h2>${safe(fp.title)}</h2></div><div class="hero-property-price">${money(fp.price)}</div>`;document.getElementById('heroOpen').dataset.id=fp.id;document.getElementById('experienceImage').style.backgroundImage=`url("${cover(catalog.properties[1]||fp)}")`}
   renderFavoriteCount();renderLocations();renderRecentlyViewed();calculateFinance();
 }
 
