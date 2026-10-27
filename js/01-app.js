@@ -116,8 +116,9 @@ function renderHeader(){
   const heroInfo=document.getElementById('heroPropertyInfo');
   const heroOpen=document.getElementById('heroOpen');
   const experienceImage=document.getElementById('experienceImage');
-  const featuredCover=fp?heroCoverHD(fp):'';
-  setAgSafeBackground(heroPhoto,featuredCover);
+  // V67: a capa principal do site é fixa e nunca deve ser substituída por fotos de imóveis.
+  // O imóvel em destaque continua podendo alimentar texto/botão, mas não altera a imagem de fundo do hero.
+  setAgSafeBackground(heroPhoto,AG_DEFAULT_HERO);
   if(experienceImage){
     const expProperty=(catalog.properties||[])[1]||fp;
     setAgSafeBackground(experienceImage,(expProperty&&cover(expProperty))||'');
