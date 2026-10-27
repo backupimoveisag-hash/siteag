@@ -12,23 +12,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const wrap=document.getElementById('searchDock');
   const toggle=document.getElementById('advancedLocationToggle');
-  if(wrap&&toggle){
-    const setFiltersOpen=(open)=>{
-      wrap.classList.toggle('advanced-open',open);
-      toggle.setAttribute('aria-expanded',String(open));
-      toggle.textContent=open?'− Fechar filtros':'+ Mais filtros';
-    };
-    toggle.addEventListener('click',()=>setFiltersOpen(!wrap.classList.contains('advanced-open')));
-    document.addEventListener('click',(ev)=>{
-      if(wrap.classList.contains('advanced-open')&&!wrap.contains(ev.target)) setFiltersOpen(false);
-    });
-    document.addEventListener('keydown',(ev)=>{
-      if(ev.key==='Escape'&&wrap.classList.contains('advanced-open')){
-        setFiltersOpen(false);
-        toggle.focus();
-      }
-    });
-  }
+  if(wrap&&toggle){toggle.addEventListener('click',()=>{const open=wrap.classList.toggle('advanced-open');toggle.setAttribute('aria-expanded',String(open));});}
 
   const price=document.getElementById('priceRange');
   const priceAdv=document.getElementById('priceRangeAdvanced');
