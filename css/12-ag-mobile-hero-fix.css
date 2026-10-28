@@ -2,7 +2,7 @@
 .concept-hero #heroPhoto{background-color:#14253f;background-image:url('../assets/login-luxury-bg.jpg');background-size:cover;background-position:center center}
 .concept-hero .hero-photo:before{background:linear-gradient(180deg,rgba(6,15,27,.42),rgba(6,15,27,.32) 42%,rgba(6,15,27,.70) 100%)!important}
 .ag-hero-heading{text-align:center;color:#fff;margin:0 auto 20px;max-width:680px;text-shadow:0 2px 16px rgba(0,0,0,.32)}
-.ag-hero-heading h1{font-size:clamp(25px,3vw,39px);line-height:1.12;letter-spacing:-.035em;font-weight:650;margin:0 0 7px;color:#fff}
+.ag-hero-heading h1{font-size:clamp(25px,3vw,39px);line-height:1.12;letter-spacing:-.035em;font-weight:650;margin:0 0 7px;color:#D4AF37}
 .ag-hero-heading p{font-size:clamp(12px,1.2vw,15px);line-height:1.5;margin:0;color:rgba(255,255,255,.90)}
 @media(max-width:760px){
  .site-nav .nav-inner{height:70px!important;padding:0 12px!important}
