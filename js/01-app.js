@@ -91,7 +91,7 @@ function requestUserLocation(){
 
 function renderHeader(){
   const s=catalog.settings||{}, fp=featuredProperty();
-  document.title='AG — Imóveis em Jaraguá do Sul e região';
+  document.title='AG — Imóveis selecionados';
   ['brandName','footerBrand','copyrightBrand'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='AG'});
   const tagline=s.tagline||fallback.settings.tagline; document.getElementById('heroTagline').innerHTML=safe(tagline).replace(/(próximo capítulo\.?)/i,'<span>$1</span>');
   document.getElementById('footerTagline').textContent=tagline;
