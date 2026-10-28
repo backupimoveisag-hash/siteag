@@ -1,0 +1,130 @@
+/* AG Imobiliaria v112 — busca responsiva e painel Mais filtros contido no mobile.
+   Escopo exclusivo ate 760px: a experiencia desktop permanece intacta. */
+@media (max-width: 760px) {
+  .concept-hero-center {
+    bottom: clamp(29px, 5svh, 66px) !important;
+  }
+  .search-dock-wrap {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    isolation: isolate;
+  }
+  .search-dock {
+    width: 100% !important;
+    min-width: 0 !important;
+    border-radius: 16px 16px 0 0 !important;
+    overflow: hidden !important;
+    border-bottom: 0 !important;
+    box-shadow: 0 15px 38px rgba(3, 12, 25, .26) !important;
+  }
+  .search-dock .search-field,
+  .search-dock .search-field > div,
+  .search-dock .search-field input,
+  .search-dock .search-field select {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .search-dock .concept-query-field > div {
+    width: 0 !important; /* flex-basis resolves space without forcing overflow */
+    flex: 1 1 0 !important;
+  }
+  .search-dock .concept-query-field input {
+    width: 100% !important;
+  }
+  .search-submit {
+    min-width: 0 !important;
+    min-height: 48px !important;
+  }
+  .concept-search-meta {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    background: #f7f6f2 !important;
+    border-radius: 0 0 16px 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 15px 38px rgba(3, 12, 25, .26) !important;
+  }
+  .concept-advanced-toggle {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 10px 16px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    border: 0 !important;
+    border-top: 1px solid #e5e5df !important;
+    border-radius: 0 !important;
+    background: #f7f6f2 !important;
+    color: #14253f !important;
+    font-size: 13px !important;
+    font-weight: 750 !important;
+    letter-spacing: .01em !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .concept-advanced-toggle:hover,
+  .concept-advanced-toggle:focus-visible,
+  .search-dock-wrap.advanced-open .concept-advanced-toggle {
+    color: #14253f !important;
+    background: #eac686 !important;
+  }
+  .concept-advanced-toggle:focus-visible {
+    outline: 2px solid #14253f !important;
+    outline-offset: -3px !important;
+  }
+  /* O painel abre PARA CIMA. Ele nao passa do rodape da capa nem cobre Buscar. */
+  .search-dock-wrap.advanced-open .geo-filter-bar {
+    position: absolute !important;
+    top: auto !important;
+    bottom: calc(100% + 10px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-height: min(42svh, 340px) !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    padding: 14px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 16px !important;
+    background: #fff !important;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, .36) !important;
+    z-index: 25 !important;
+  }
+  .search-dock-wrap .geo-filter-title {
+    grid-column: 1 / -1 !important;
+    min-width: 0 !important;
+  }
+  .search-dock-wrap .geo-field {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .search-dock-wrap .geo-field select {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    text-overflow: ellipsis !important;
+  }
+  .search-dock-wrap .geo-field:last-child {
+    grid-column: 1 / -1 !important;
+  }
+}
+@media (max-width: 350px) {
+  .search-dock-wrap.advanced-open .geo-filter-bar {padding: 12px !important;gap: 8px !important;}
+  .search-dock-wrap .geo-field {padding: 7px 8px !important;}
+}
