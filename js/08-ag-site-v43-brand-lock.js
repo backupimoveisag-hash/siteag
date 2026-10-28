@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded',()=>{
-  document.title='AG — Imóveis selecionados';
+  document.title='AG — Imóveis em Jaraguá do Sul e região';
   ['brandName','footerBrand','copyrightBrand'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='AG';});
   document.querySelectorAll('img[alt]').forEach(img=>{if(/nexo|empreendimentos/i.test(img.alt||''))img.alt='AG';});
   document.querySelectorAll('a,span,p,small,div').forEach(el=>{
