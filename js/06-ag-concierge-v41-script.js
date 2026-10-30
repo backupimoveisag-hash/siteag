@@ -97,7 +97,7 @@
     try{sessionStorage.setItem('agConciergeLeadSent','1')}catch(e){}
     row(`Obrigado, ${state.name.split(' ')[0]}. Recebi seus dados e sua preferência. Um corretor da AG poderá continuar com você a partir daqui.`);
     const box=document.createElement('div');box.className='ag-chat-success';
-    const wa=String(window.catalog?.settings?.whatsapp||'').replace(/\D/g,'');
+    const wa='5547991237384';
     const msg=`Olá! Meu nome é ${state.name}. Acabei de preencher meu perfil no site da AG. Procuro: ${state.purpose}, ${state.type}, ${state.city}, ${state.budget}.`;
     box.innerHTML=`<b>Resumo da sua busca</b><br>${escapeHTML(state.purpose)} · ${escapeHTML(state.type)}<br>${escapeHTML(state.city)} · ${escapeHTML(state.budget)}<div class="ag-chat-success-actions"><a class="primary" target="_blank" rel="noopener" href="${wa?`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`:'#'}">Continuar no WhatsApp</a><button class="secondary" type="button" id="agChatSeeProperties">Ver imóveis</button></div>`;
     body.appendChild(box);scroll();
