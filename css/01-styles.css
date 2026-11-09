@@ -113,7 +113,7 @@ body{background:var(--paper);color:var(--ink)}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(32,75,204,.28);outline-offset:2px}
 
 
-/* V26 — localização automática em raio fixo de 20 km */
+/* Estilos legados de localização — sem filtro automático por distância */
 .geo-radius-status{margin-top:10px;min-height:44px;border:1px solid rgba(23,24,22,.10);border-radius:16px;background:rgba(255,253,250,.9);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 12px 9px 14px;font-size:9px;color:#66685f;box-shadow:0 10px 30px rgba(25,25,21,.05)}
 .geo-radius-status .geo-radius-copy{display:flex;align-items:center;gap:9px;min-width:0}.geo-radius-status .geo-radius-copy svg{width:17px;height:17px;flex:0 0 auto;color:var(--accent)}.geo-radius-status b{color:var(--ink);font-size:9px}.geo-radius-status span{overflow-wrap:anywhere}.geo-radius-status.active{border-color:rgba(32,75,204,.20);background:rgba(247,249,255,.96)}.geo-radius-status.requesting .geo-radius-copy svg{animation:geoPulse 1.15s ease-in-out infinite}.geo-radius-status.denied{background:#fbfaf6}.geo-radius-retry{height:32px;border:1px solid var(--line-strong);border-radius:10px;background:#fff;padding:0 11px;color:var(--ink);font-size:8px;font-weight:800;white-space:nowrap}.geo-radius-retry:hover{border-color:#9fa59b;transform:translateY(-1px)}
 @keyframes geoPulse{50%{opacity:.35;transform:scale(.88)}}
