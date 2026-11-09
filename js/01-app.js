@@ -69,46 +69,10 @@ function iconHeart(filled=false){return `<svg viewBox="0 0 24 24" ${filled?'fill
 function iconCompare(){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 4v16M9 8l3-3 3 3M9 16l3 3 3-3"/></svg>`}
 function photoIcon(){return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>`}
 
-/* GEO20_START */
-const GEO_RADIUS_KM=20;
-function haversineKm(lat1,lng1,lat2,lng2){
-  const rad=n=>n*Math.PI/180,R=6371.0088,dLat=rad(lat2-lat1),dLng=rad(lng2-lng1),a=Math.sin(dLat/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLng/2)**2;
-  return 2*R*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-}
-function propertyCoords(p){
-  if(!p)return null;const rawLat=p.lat??p.latitude,rawLng=p.lng??p.lon??p.longitude;if(rawLat===null||rawLat===undefined||rawLat===''||rawLng===null||rawLng===undefined||rawLng==='')return null;
-  const lat=Number(rawLat),lng=Number(rawLng);if(!Number.isFinite(lat)||!Number.isFinite(lng)||lat<-90||lat>90||lng<-180||lng>180)return null;return {lat,lng};
-}
-function withinRadiusKm(user,p,radius=GEO_RADIUS_KM){const c=propertyCoords(p);if(!user||!c)return false;return haversineKm(user.lat,user.lng,c.lat,c.lng)<=radius;}
-function formatDistanceKm(km){if(!Number.isFinite(km))return '';if(km<1)return `${Math.max(1,Math.round(km*1000))} m de você`;return `${km.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})} km de você`;}
-/* GEO20_END */
-
-let userLocation=null,geoLocationState='requesting';
-function propertyDistanceKm(p){const c=propertyCoords(p);return userLocation&&c?haversineKm(userLocation.lat,userLocation.lng,c.lat,c.lng):null;}
+/* Catálogo público sem limitação geográfica automática.
+   Todos os imóveis publicados permanecem visíveis; localização é apenas filtro manual. */
+function propertyDistanceKm(){return null;}
 function distancePinIcon(){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.4 7-12a7 7 0 1 0-14 0c0 6.6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>`}
-function renderGeoRadiusStatus(){
-  const box=document.getElementById('geoRadiusStatus'),txt=document.getElementById('geoRadiusText'),retry=document.getElementById('geoRadiusRetry');if(!box||!txt||!retry)return;
-  box.classList.remove('active','requesting','denied');retry.classList.add('hidden');
-  if(geoLocationState==='active'){
-    box.classList.add('active');const nearby=catalog.properties.filter(p=>withinRadiusKm(userLocation,p,GEO_RADIUS_KM)).length;txt.innerHTML=`<b>Raio automático de 20 km ativo</b> · ${nearby} ${nearby===1?'imóvel próximo':'imóveis próximos'} · ordenados pela distância.`;
-  }else if(geoLocationState==='requesting'){
-    box.classList.add('requesting');txt.innerHTML='<b>Raio de 20 km</b> · localizando você para mostrar somente imóveis próximos.';
-  }else{
-    box.classList.add('denied');txt.innerHTML='<b>Raio de 20 km indisponível</b> · autorize sua localização para filtrar os imóveis próximos.';retry.classList.remove('hidden');
-  }
-}
-function requestUserLocation(){
-  geoLocationState='requesting';renderGeoRadiusStatus();
-  if(!navigator.geolocation){geoLocationState='denied';renderGeoRadiusStatus();return;}
-  navigator.geolocation.getCurrentPosition(pos=>{
-    userLocation={lat:Number(pos.coords.latitude),lng:Number(pos.coords.longitude)};geoLocationState='active';filters.sort='distance';visibleLimit=8;
-    const sort=document.getElementById('sort');if(sort){sort.value='distance';sort.disabled=true;sort.title='Com a localização ativa, os imóveis ficam ordenados do mais próximo para o mais distante.'}
-    renderGeoRadiusStatus();renderProperties();
-    if(activeProperty&&document.getElementById('modalBg')?.classList.contains('show'))openProperty(activeProperty.id);
-  },()=>{
-    userLocation=null;geoLocationState='denied';const sort=document.getElementById('sort');if(sort){sort.disabled=false;if(sort.value==='distance'){sort.value='featured';filters.sort='featured'}}renderGeoRadiusStatus();renderProperties();
-  },{enableHighAccuracy:true,timeout:12000,maximumAge:300000});
-}
 
 function renderHeader(){
   const s=catalog.settings||{}, fp=featuredProperty();
@@ -218,17 +182,15 @@ function filtered(){
     if(filters.state&&propertyState(p)!==filters.state)return false;if(filters.city&&p.city!==filters.city)return false;if(filters.district&&p.district!==filters.district)return false;
     if(filters.price&&!pricePrivate(p)){const [a,b]=filters.price.split('-').map(Number);if(Number(p.price)<a||Number(p.price)>b)return false}
     if(filters.quick==='featured'&&!p.featured)return false;
-    if(userLocation&&!withinRadiusKm(userLocation,p,GEO_RADIUS_KM))return false;
     return true;
   });
-  if(userLocation)list.sort((a,b)=>(propertyDistanceKm(a)??Infinity)-(propertyDistanceKm(b)??Infinity));
-  else if(filters.sort==='priceAsc')list.sort((a,b)=>(Number(pricePrivate(a))-Number(pricePrivate(b)))||(a.price-b.price));else if(filters.sort==='priceDesc')list.sort((a,b)=>(Number(pricePrivate(a))-Number(pricePrivate(b)))||(b.price-a.price));else if(filters.sort==='areaDesc')list.sort((a,b)=>(b.area||0)-(a.area||0));else list.sort((a,b)=>(Number(b.featured)-Number(a.featured))||String(a.id).localeCompare(String(b.id)));
+  if(filters.sort==='priceAsc')list.sort((a,b)=>(Number(pricePrivate(a))-Number(pricePrivate(b)))||(a.price-b.price));else if(filters.sort==='priceDesc')list.sort((a,b)=>(Number(pricePrivate(a))-Number(pricePrivate(b)))||(b.price-a.price));else if(filters.sort==='areaDesc')list.sort((a,b)=>(b.area||0)-(a.area||0));else list.sort((a,b)=>(Number(b.featured)-Number(a.featured))||String(a.id).localeCompare(String(b.id)));
   return list;
 }
 
 function renderProperties(){
   const all=filtered(), list=all.slice(0,visibleLimit), grid=document.getElementById('propertyGrid');
-  document.getElementById('resultCount').textContent=userLocation?`${all.length} ${all.length===1?'imóvel em até 20 km':'imóveis em até 20 km'}`:`${all.length} ${all.length===1?'imóvel encontrado':'imóveis encontrados'}`;renderGeoRadiusStatus();
+  document.getElementById('resultCount').textContent=`${all.length} ${all.length===1?'imóvel encontrado':'imóveis encontrados'}`;
   grid.innerHTML=list.length?list.map((p,i)=>propertyCard(p,i===0&&p.featured)).join(''):`<div class="empty"><strong>Nenhum imóvel encontrado.</strong>Experimente remover algum filtro ou buscar por outra região.</div>`;
   document.getElementById('loadMore').classList.toggle('hidden',all.length<=visibleLimit);
   bindCardEvents();
@@ -266,8 +228,8 @@ function renderLightbox(){const ph=lightboxPhotos[lightboxIndex];if(!ph)return;d
 function moveLightbox(dir){lightboxIndex=(lightboxIndex+dir+lightboxPhotos.length)%lightboxPhotos.length;renderLightbox()}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('show');if(!document.getElementById('modalBg').classList.contains('show'))document.body.classList.remove('modal-open')}
 
-function applyFiltersFromControls(){filters.q=document.getElementById('search').value.trim().toLowerCase();filters.purpose=document.getElementById('purpose').value;filters.type=document.getElementById('type').value;filters.price=document.getElementById('priceRange').value;filters.state=document.getElementById('stateFilter')?.value||'';filters.city=document.getElementById('cityFilter')?.value||'';filters.district=document.getElementById('districtFilter')?.value||'';filters.sort=userLocation?'distance':document.getElementById('sort').value;visibleLimit=8;renderProperties()}
-function clearFilters(){filters={q:'',purpose:'',type:'',price:'',state:'',city:'',district:'',quick:'all',sort:userLocation?'distance':'featured'};['search','purpose','type','priceRange'].forEach(id=>document.getElementById(id).value='');document.getElementById('sort').value=userLocation?'distance':'featured';document.querySelectorAll('[data-quick]').forEach(b=>b.classList.toggle('active',b.dataset.quick==='all'));renderLocationFilters();visibleLimit=8;renderProperties()}
+function applyFiltersFromControls(){filters.q=document.getElementById('search').value.trim().toLowerCase();filters.purpose=document.getElementById('purpose').value;filters.type=document.getElementById('type').value;filters.price=document.getElementById('priceRange').value;filters.state=document.getElementById('stateFilter')?.value||'';filters.city=document.getElementById('cityFilter')?.value||'';filters.district=document.getElementById('districtFilter')?.value||'';filters.sort=document.getElementById('sort').value;visibleLimit=8;renderProperties()}
+function clearFilters(){filters={q:'',purpose:'',type:'',price:'',state:'',city:'',district:'',quick:'all',sort:'featured'};['search','purpose','type','priceRange'].forEach(id=>document.getElementById(id).value='');document.getElementById('sort').value='featured';document.querySelectorAll('[data-quick]').forEach(b=>b.classList.toggle('active',b.dataset.quick==='all'));renderLocationFilters();visibleLimit=8;renderProperties()}
 function refreshCatalog(){catalog=normalizeAgCatalog(loadCatalog())||fallback;renderHeader();renderLocationFilters();renderProperties();renderFavorites();renderLocations();renderRecentlyViewed();if(activeProperty){const still=catalog.properties.find(p=>p.id===activeProperty.id);if(still&&document.getElementById('modalBg').classList.contains('show'))openProperty(still.id)}}
 function revealOnScroll(){const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))}
 
@@ -279,7 +241,7 @@ document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Ent
 document.getElementById('stateFilter')?.addEventListener('change',e=>{filters.state=e.target.value;filters.city='';filters.district='';renderLocationFilters();visibleLimit=8;renderProperties()});
 document.getElementById('cityFilter')?.addEventListener('change',e=>{filters.city=e.target.value;filters.district='';renderLocationFilters();visibleLimit=8;renderProperties()});
 document.getElementById('districtFilter')?.addEventListener('change',e=>{filters.district=e.target.value;visibleLimit=8;renderProperties()});
-document.getElementById('sort').addEventListener('change',applyFiltersFromControls);document.getElementById('clearFilters').addEventListener('click',clearFilters);document.getElementById('geoRadiusRetry')?.addEventListener('click',requestUserLocation);
+document.getElementById('sort').addEventListener('change',applyFiltersFromControls);document.getElementById('clearFilters').addEventListener('click',clearFilters);
 document.querySelectorAll('[data-quick]').forEach(b=>b.addEventListener('click',()=>{filters.quick=b.dataset.quick;document.querySelectorAll('[data-quick]').forEach(x=>x.classList.toggle('active',x===b));renderProperties()}));
 document.querySelectorAll('[data-intent-purpose]').forEach(b=>b.addEventListener('click',()=>{filters.purpose=b.dataset.intentPurpose;document.getElementById('purpose').value=filters.purpose;renderProperties();scrollToCatalog()}));document.querySelectorAll('[data-intent-type]').forEach(b=>b.addEventListener('click',()=>{filters.type=b.dataset.intentType;document.getElementById('type').value=filters.type;renderProperties();scrollToCatalog()}));
 document.querySelectorAll('[data-nav-purpose],[data-footer-purpose]').forEach(b=>b.addEventListener('click',()=>{filters.purpose=b.dataset.navPurpose||b.dataset.footerPurpose;document.getElementById('purpose').value=filters.purpose;renderProperties();scrollToCatalog()}));
@@ -301,4 +263,4 @@ document.getElementById('leadCaptureClose')?.addEventListener('click',closeLeadC
 ['navWhatsapp','floatingWa','footerWhatsapp'].forEach(id=>document.getElementById(id)?.addEventListener('click',e=>{e.preventDefault();openLeadCapture({kind:'general'})}));document.getElementById('financeWhatsapp')?.addEventListener('click',e=>{e.preventDefault();openLeadCapture({kind:'finance'})});
 document.addEventListener('click',e=>{const a=e.target.closest('.detail-cta a.primary,.detail-contact-card a');if(a&&activeProperty){e.preventDefault();openLeadCapture({kind:'property',propertyId:activeProperty.id})}});
 
-renderHeader();renderLocationFilters();renderProperties();renderFavorites();renderCompareBar();renderLocations();renderRecentlyViewed();calculateFinance();revealOnScroll();requestUserLocation();
+renderHeader();renderLocationFilters();renderProperties();renderFavorites();renderCompareBar();renderLocations();renderRecentlyViewed();calculateFinance();revealOnScroll();
