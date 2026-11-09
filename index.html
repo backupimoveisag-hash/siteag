@@ -106,13 +106,6 @@
 
         <div class="concept-search-meta">
           <button class="concept-advanced-toggle" id="advancedLocationToggle" type="button" aria-expanded="false">+ Mais filtros</button>
-          <div class="geo-radius-status requesting" id="geoRadiusStatus" aria-live="polite">
-            <div class="geo-radius-copy">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 21s7-5.4 7-12a7 7 0 1 0-14 0c0 6.6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
-              <span id="geoRadiusText"><b>Raio de 20 km</b> · aguardando sua localização.</span>
-            </div>
-            <button class="geo-radius-retry hidden" id="geoRadiusRetry" type="button">Ativar localização</button>
-          </div>
         </div>
 
         <div class="geo-filter-bar" aria-label="Filtros por localização">
@@ -159,7 +152,7 @@
         <button class="filter-chip active" data-quick="all">Todos</button>
         <button class="filter-chip" data-quick="featured">Destaques</button>
         <button class="filter-chip" data-quick="newest">Mais recentes</button>
-        <select class="tool-select" id="sort"><option value="distance">Mais próximos</option><option value="featured">Ordenar: relevância</option><option value="priceAsc">Menor preço</option><option value="priceDesc">Maior preço</option><option value="areaDesc">Maior área</option></select>
+        <select class="tool-select" id="sort"><option value="featured">Ordenar: relevância</option><option value="priceAsc">Menor preço</option><option value="priceDesc">Maior preço</option><option value="areaDesc">Maior área</option></select>
         <button class="tool-btn" id="clearFilters">Limpar filtros</button>
       </div>
     </div>
