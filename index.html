@@ -46,6 +46,8 @@
 <style id="ag-site-hero-title-gold-v166">
 .ag-hero-heading h1{color:#EAC686 !important;text-shadow:0 2px 22px rgba(0,0,0,.18);}
 </style>
+<link rel="stylesheet" href="./css/16-ag-footer-contact-highlight-v174.css">
+<link rel="stylesheet" href="./css/17-ag-footer-creci-v176.css">
 </head>
 <body>
 <header class="site-nav" id="siteNav">
@@ -260,8 +262,8 @@
     <div class="footer-grid">
       <div class="footer-brand"><a href="#top" class="brand brand--logo" aria-label="AG"><img class="brand-logo-img" src="./assets/ag-logo.png" alt="AG"><span id="footerBrand" class="sr-only">AG</span></a><p id="footerTagline">Mais do que imóveis, conexões que transformam histórias. Compra, venda e locação em Jaraguá do Sul e região.</p></div>
       <div><h4>Explorar</h4><button data-footer-purpose="Venda">Comprar</button><button data-footer-purpose="Locação">Alugar</button><button id="footerProperties">Todos os imóveis</button></div>
-      <div><h4>Atendimento</h4><a id="footerWhatsapp" href="#">WhatsApp</a><a id="footerEmail" href="#">E-mail</a><span id="footerPhone" style="display:block;padding:4px 0;font-size:9px;color:#71726b"></span></div>
-      <div><h4>Sobre a AG</h4><a href="#about" style="display:block;padding:4px 0">Quem somos</a><a href="#owners" style="display:block;padding:4px 0">Anuncie seu imóvel</a><span id="footerRegion" style="display:block;padding:4px 0;font-size:9px;color:#71726b"></span><span style="display:block;padding:4px 0;font-size:9px;color:#71726b">Jaraguá do Sul e região</span></div>
+      <div><h4>Atendimento</h4><a id="footerWhatsapp" href="#">WhatsApp</a><a id="footerEmail" href="#">E-mail</a><a id="footerPhone" class="footer-highlight footer-highlight-phone" href="tel:+5547991237384"><small>Telefone / WhatsApp</small><strong>(47) 99123-7384</strong></a></div>
+      <div><h4>Sobre a AG</h4><a href="#about" style="display:block;padding:4px 0">Quem somos</a><a href="#owners" style="display:block;padding:4px 0">Anuncie seu imóvel</a><div id="footerRegion" class="footer-highlight footer-highlight-region"><small>Área de atuação</small><strong>Jaraguá do Sul e região</strong></div><div class="footer-creci"><small>Responsável técnica</small><strong>Myrcia</strong><span>CRECI 78.666</span></div></div>
     </div>
     <div class="footer-bottom"><span>© <span id="year"></span> <span id="copyrightBrand">AG</span></span><span id="syncText">Catálogo atualizado</span></div>
   </div>
@@ -269,9 +271,9 @@
 
 
 <div class="ag-concierge-teaser" id="agConciergeTeaser"><b>Vamos encontrar o imóvel ideal?</b><span>Conte o que procura e descubra como podemos ajudar.</span></div>
-<button class="ag-concierge-launcher" id="agConciergeLauncher" type="button" aria-label="Abrir assistente AG" aria-expanded="false">
+<button class="ag-concierge-launcher" id="agConciergeLauncher" type="button" aria-label="Abrir atendimento AG" aria-expanded="false">
   <span class="dot" aria-hidden="true"></span>
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.7-5.1A7 7 0 0 1 3 12V9a6 6 0 0 1 6-6h6a6 6 0 0 1 6 6v6Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.21c-.27-.14-1.61-.79-1.86-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.19-1.34-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.13-.13.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.02-.22-.53-.44-.45-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.82c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.56.58.65.21 1.24.18 1.7.11.52-.08 1.61-.66 1.84-1.3.23-.64.23-1.18.16-1.3-.07-.11-.25-.18-.52-.32Z"/><path d="M16.03 5.33c-5.88 0-10.65 4.76-10.65 10.63 0 1.88.49 3.72 1.42 5.35L5.33 26.67l5.5-1.44a10.63 10.63 0 0 0 5.19 1.33h.01c5.86 0 10.64-4.77 10.64-10.64A10.61 10.61 0 0 0 16.03 5.33Zm0 19.43h-.01a8.86 8.86 0 0 1-4.52-1.24l-.32-.19-3.26.85.87-3.18-.21-.33a8.82 8.82 0 0 1-1.36-4.72c0-4.9 4-8.89 8.91-8.89a8.89 8.89 0 0 1 8.89 8.89c0 4.91-3.99 8.9-8.89 8.9Z"/></svg>
 </button>
 <div class="ag-concierge" id="agConcierge" role="dialog" aria-modal="false" aria-label="Assistente virtual AG">
   <div class="ag-chat-head">
