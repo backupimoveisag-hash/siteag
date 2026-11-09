@@ -1,0 +1,36 @@
+/* V176 — Credencial CRECI no rodapé */
+.footer .footer-creci{
+  margin-top:10px;
+  padding:12px 14px;
+  border-left:2px solid #EAC686;
+  background:rgba(255,255,255,.035);
+  border-radius:0 10px 10px 0;
+}
+.footer .footer-creci small{
+  display:block;
+  color:#EAC686;
+  font-size:9px!important;
+  line-height:1.2;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.footer .footer-creci strong{
+  display:block;
+  color:#fff!important;
+  font-size:14px!important;
+  line-height:1.25;
+  font-weight:750;
+}
+.footer .footer-creci span{
+  display:block;
+  margin-top:3px;
+  color:rgba(255,255,255,.78);
+  font-size:12px!important;
+  line-height:1.3;
+  font-weight:650;
+}
+@media(max-width:620px){
+  .footer .footer-creci{padding:11px 13px;margin-top:9px}
+}
