@@ -1,0 +1,27 @@
+/* V190 — contraste da seção Para Proprietários, sem alterar layout */
+.ag-editorial-owner .ag-editorial-inner{
+  background:#101e30 !important;
+  border-color:#24364d !important;
+}
+.ag-editorial-owner .eyebrow{
+  color:#EAC686 !important;
+}
+.ag-editorial-owner h2{
+  color:#FFFFFF !important;
+  text-shadow:0 2px 20px rgba(0,0,0,.12) !important;
+}
+.ag-editorial-owner .ag-editorial-inner p{
+  color:rgba(255,255,255,.82) !important;
+}
+.ag-editorial-owner .ag-editorial-inner strong{
+  color:#FFFFFF !important;
+}
+.ag-editorial-owner .ag-owner-action{
+  background:#EAC686 !important;
+  color:#14253F !important;
+  box-shadow:0 12px 30px rgba(234,198,134,.14) !important;
+}
+.ag-editorial-owner .ag-owner-action:hover{
+  background:#F2D59E !important;
+  color:#14253F !important;
+}
